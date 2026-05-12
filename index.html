@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Pilgua - Productos con Sentido</title>
+    <script>
+        // Previene el parpadeo (FOUC) al cargar la página
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .bg-cream {
+            background-color: #fdf8f7;
+        }
+
+        .text-pilgua {
+            color: #e97171;
+        }
+
+        .bg-pilgua {
+            background-color: #e97171;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Dark Mode Styles */
+        html.dark body {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+
+        html.dark .bg-cream {
+            background-color: #2d3748;
+        }
+
+        html.dark .bg-white {
+            background-color: #2d3748;
+        }
+
+        html.dark .text-gray-900 {
+            color: #f7fafc;
+        }
+
+        html.dark .text-gray-800 {
+            color: #e2e8f0;
+        }
+
+        html.dark .text-gray-700 {
+            color: #e2e8f0;
+        }
+
+        html.dark .text-gray-600 {
+            color: #cbd5e0;
+        }
+
+        html.dark .text-gray-500 {
+            color: #a0aec0;
+        }
+
+        html.dark .text-pilgua {
+            color: #ff8a8a;
+        }
+
+        html.dark .border-white {
+            border-color: #1a202c;
+        }
+
+        html.dark .wave-container {
+            color: #1a202c;
+        }
+
+        .wave-container {
+            color: #ffffff;
+        }
+
+        /* Smooth transition for dark mode */
+        body,
+        .bg-cream,
+        .bg-white,
+        .text-gray-900,
+        .text-gray-800,
+        .text-gray-700,
+        .text-gray-600,
+        .text-gray-500,
+        .text-pilgua,
+        .border-white,
+        .wave-container {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="antialiased text-gray-700">
+
+    <div x-data="{ open: false }" class="w-full bg-cream">
+        <div class="flex flex-col max-w-screen-xl px-8 mx-auto md:items-center md:justify-between md:flex-row">
+            <div class="flex flex-row items-center justify-between py-6">
+                <div class="relative">
+                    <a href="#" class="text-2xl font-bold tracking-tight text-pilgua relative z-50">Eco Pilgua</a>
+                    <svg class="h-11 z-40 absolute -top-2 -left-3" viewBox="0 0 79 79" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M35.2574 2.24264C37.6005 -0.100501 41.3995 -0.100505 43.7426 2.24264L76.7574 35.2574C79.1005 37.6005 79.1005 41.3995 76.7574 43.7426L43.7426 76.7574C41.3995 79.1005 37.6005 79.1005 35.2574 76.7574L2.24264 43.7426C-0.100501 41.3995 -0.100505 37.6005 2.24264 35.2574L35.2574 2.24264Z"
+                            fill="#ffcc5c" />
+                    </svg>
+                </div>
+                <button class="rounded-lg md:hidden focus:outline-none" @click="open = !open">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                        <path x-show="!open"
+                            d="M3 5h14a1 1 0 110 2H3a1 1 0 110-2zm0 5h14a1 1 0 110 2H3a1 1 0 110-2zm0 5h14a1 1 0 110 2H3a1 1 0 110-2z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <nav :class="{'flex': open, 'hidden': !open}"
+                class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+                <a class="px-4 py-2 mt-2 text-sm font-medium md:mt-8 md:ml-4 hover:text-pilgua" href="#home">Inicio</a>
+                <a class="px-4 py-2 mt-2 text-sm font-medium md:mt-8 md:ml-4 hover:text-pilgua"
+                    href="#productos">Productos</a>
+                <a class="px-4 py-2 mt-2 text-sm font-medium md:mt-8 md:ml-4 hover:text-pilgua"
+                    href="#historia">Historia</a>
+                <a class="px-4 py-2 mt-2 text-sm font-medium md:mt-8 md:ml-4 hover:text-pilgua"
+                    href="#contacto">Ubicación</a>
+                <button id="theme-toggle"
+                    class="px-4 py-2 mt-2 text-sm font-medium md:mt-8 md:ml-4 hover:text-pilgua focus:outline-none flex items-center justify-center transition-colors duration-300"
+                    aria-label="Cambiar modo oscuro">
+                    <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 2.343a1 1 0 011.415 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM15.636 15.636a1 1 0 010 1.415l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.415 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-2.343a1 1 0 010 1.415l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 0zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM6.343 5.757a1 1 0 010-1.414l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414 0z">
+                        </path>
+                        <path d="M10 14a4 4 0 100-8 4 4 0 000 8z"></path>
+                    </svg>
+                    <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+                <a class="px-10 py-3 mt-2 text-sm text-center bg-pilgua text-white rounded-full md:mt-8 md:ml-4 shadow-lg transition transform hover:scale-105"
+                    href="https://wa.me/56932776583" target="_blank">WhatsApp</a>
+            </nav>
+        </div>
+    </div>
+
+    <div id="home" class="bg-cream overflow-x-hidden">
+        <div class="max-w-screen-xl px-8 mx-auto flex flex-col lg:flex-row items-center">
+            <div
+                class="flex flex-col w-full lg:w-6/12 justify-center lg:pt-24 items-start text-center lg:text-left mb-10">
+                <h1 data-aos="fade-right" data-aos-once="true"
+                    class="my-4 text-5xl font-bold leading-tight text-gray-900">
+                    <span class="text-pilgua">Personalizar</span> tus regalos ahora es más fácil
+                </h1>
+                <p data-aos="fade-down" data-aos-once="true" data-aos-delay="300" class="leading-normal text-2xl mb-8">
+                    Productos personalizados llenos de color, emoción y significado. Hechos con amor en Llay Llay.</p>
+                <div data-aos="fade-up" data-aos-once="true" data-aos-delay="700"
+                    class="w-full flex items-center justify-center lg:justify-start space-x-5">
+                    <a href="#productos"
+                        class="bg-pilgua text-white text-xl font-bold rounded-full py-4 px-9 hover:scale-110 transform transition duration-300 shadow-xl inline-block">
+                        Ver Productos
+                    </a>
+                </div>
+            </div>
+            <div class="w-full lg:w-6/12 relative" data-aos="fade-up">
+                <img class="w-10/12 mx-auto rounded-3xl shadow-2xl border-8 border-white" src="img/portada.jpg"
+                    alt="Eco Pilgua Portada" />
+                <div class="absolute -bottom-10 -left-5 floating hidden md:block">
+                    <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-pilgua">
+                        <p class="font-bold text-pilgua">10 Años</p>
+                        <p class="text-xs">Transformando historias</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wave-container -mt-14 relative z-40">
+            <svg class="w-full h-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z"
+                    fill="currentColor"></path>
+            </svg>
+        </div>
+    </div>
+
+    <div id="productos" class="container px-8 mx-auto max-w-screen-xl py-20">
+        <div data-aos="flip-up" class="max-w-xl mx-auto text-center mb-16">
+            <h1 class="font-bold text-4xl text-gray-900 my-3">Nuestros <span class="text-pilgua">Productos</span></h1>
+            <p class="text-gray-500">Diseños únicos que transforman tus ideas en piezas especiales.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-10">
+            <div data-aos="fade-up"
+                class="bg-white shadow-2xl p-6 text-center rounded-3xl border-b-8 border-pilgua transform transition hover:-translate-y-2">
+                <img src="img/producto1.jpg" class="w-full h-56 object-cover rounded-2xl mb-6 shadow-md" alt="Tazones">
+                <h1 class="font-bold text-xl mb-3 text-gray-800">Tazones</h1>
+                <p class="text-gray-500 text-sm">Personalización exclusiva para momentos llenos de color.</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200"
+                class="bg-white shadow-2xl p-6 text-center rounded-3xl border-b-8 border-yellow-400 transform transition hover:-translate-y-2">
+                <img src="img/producto2.jpg" class="w-full h-56 object-cover rounded-2xl mb-6 shadow-md" alt="Agendas">
+                <h1 class="font-bold text-xl mb-3 text-gray-800">Agendas</h1>
+                <p class="text-gray-500 text-sm">Organiza tus sueños en libretas hechas totalmente a mano.</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="400"
+                class="bg-white shadow-2xl p-6 text-center rounded-3xl border-b-8 border-blue-400 transform transition hover:-translate-y-2">
+                <img src="img/producto3.jpg" class="w-full h-56 object-cover rounded-2xl mb-6 shadow-md"
+                    alt="Papelería">
+                <h1 class="font-bold text-xl mb-3 text-gray-800">Papelería</h1>
+                <p class="text-gray-500 text-sm">Detalles creativos y papelería para regalos inolvidables.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="historia" class="bg-cream py-24">
+        <div class="max-w-screen-xl px-8 mx-auto flex flex-col md:flex-row items-center md:space-x-16">
+            <div data-aos="zoom-in" class="md:w-1/2 mb-12 md:mb-0">
+                <img class="rounded-3xl shadow-2xl border-8 border-white transform rotate-2" src="img/historia.jpg"
+                    alt="Nuestra Historia">
+            </div>
+            <div data-aos="fade-left" class="md:w-1/2">
+                <h1 class="text-4xl font-bold mb-6 text-gray-900">Nuestra <span class="text-pilgua">Historia</span></h1>
+                <p class="text-2xl text-pilgua font-medium leading-relaxed mb-6 italic">"Del dolor más grande nació la
+                    fuerza más linda".</p>
+                <p class="text-gray-600 text-lg mb-8">Hace 10 años decidí transformar mi historia en amor y creatividad.
+                    Así nació Eco Pilgua en Llay Llay, un emprendimiento creado con cariño y sentido para acompañar tus
+                    mejores momentos.</p>
+                <a href="https://www.instagram.com/ecopligua" target="_blank"
+                    class="inline-block bg-pilgua text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-red-500 transition">Visítanos
+                    en Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contacto" class="py-16" style="background-color: #252641;">
+        <div class="max-w-screen-xl mx-auto px-8 text-center">
+            <div class="mb-10">
+                <h1 class="font-bold text-3xl text-pilgua mb-2">Eco Pilgua</h1>
+                <p class="text-gray-400">Hecho con amor en la ciudad del viento.</p>
+                
+                <!-- Mapa de Ubicación -->
+                <div class="mt-10 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-700 h-64 md:h-80" data-aos="fade-up">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        frameborder="0" 
+                        scrolling="no" 
+                        marginheight="0" 
+                        marginwidth="0" 
+                        src="https://maps.google.com/maps?q=Llay%20Llay,%20Valpara%C3%ADso,%20Chile&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                        class="filter opacity-90 hover:opacity-100 transition-opacity duration-300">
+                    </iframe>
+                </div>
+            </div>
+            <div class="flex justify-center space-x-8 mb-10 text-gray-300">
+                <a href="https://wa.me/56932776583" target="_blank" class="hover:text-pilgua transition">WhatsApp</a>
+                <a href="https://www.instagram.com/ecopligua" target="_blank"
+                    class="hover:text-pilgua transition">Instagram</a>
+                <span class="text-gray-500">|</span>
+                <span class="text-gray-400">Llay Llay, Chile</span>
+            </div>
+            <p class="text-gray-500 text-sm border-t border-gray-800 pt-8">
+                &copy; 2026 Eco Pilgua | Evaluación Diseño Web | Pamela Azócar
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Dark mode toggle logic
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Initial check
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+
+        themeToggleBtn.addEventListener('click', function () {
+            // toggle icons
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            // toggle theme
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
